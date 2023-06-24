@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".MainActivity" >
+
+	<TextView
+		android:id="@+id/appTitle"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="25dp"
+		android:gravity="center"
+		android:text="@string/app_name"
+		android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+		android:textStyle="bold" />
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_below="@id/appTitle">
+
+		<LinearLayout
+			android:id="@+id/linearLayout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintTop_toBottomOf="@id/bmiDescription">
+
+			<TextView
+				android:id="@+id/date_label"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="25dp"
+				android:gravity="center"
+				android:text="@string/date_label"
+				android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+				android:visibility="visible" />
+
+			<Button
+				android:id="@+id/dateSelect"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:insetLeft="50dp"
+				android:insetRight="50dp"
+				android:text="@string/date_placeholder"
+				app:backgroundTint="@color/material_dynamic_neutral40"
+				app:icon="@drawable/calendar"
+				app:iconTint="@color/material_dynamic_secondary100" />
+
+			<TextView
+				android:id="@+id/birth_date_value_error_msg"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:textAppearance="@style/TextAppearance.AppCompat.Small"
+				android:visibility="visible" />
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/bmiDescription"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="25dp"
+			android:gravity="center"
+			android:text="@string/zodiac_description"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<Button
+			android:id="@+id/submit_btn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="24dp"
+			android:layout_marginBottom="24dp"
+			android:text="@string/submit"
+			app:layout_constraintBottom_toTopOf="@+id/responseContainer"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+		<LinearLayout
+			android:id="@+id/responseContainer"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintTop_toBottomOf="@+id/submit_btn">
+
+			<TextView
+				android:id="@+id/zodiacSign"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="25dp"
+				android:gravity="center"
+				android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+				android:visibility="visible" />
+
+			<TextView
+				android:id="@+id/zodiacQualities"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="25dp"
+				android:gravity="center"
+				android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+				android:textStyle="normal" />
+		</LinearLayout>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

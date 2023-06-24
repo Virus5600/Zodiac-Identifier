@@ -1,0 +1,10 @@
+<resources>
+	<!-- LABELS -->
+	<string name="app_name">Zodiac Identifier</string>
+	<string name="zodiac_description">Zodiac refers to one of 12 specific constellations of the zodiac that the sun passes through. A person\'s particular sign of the zodiac is the one that the sun was in when they were born. It is a belief in astrology that a person\'s personality can be predicted using their sign of the zodiac.</string>
+	<string name="date_label">Birth Date</string>
+	<string name="date_placeholder">Select Birth Date</string>
+
+	<!-- BUTTONS -->
+	<string name="submit">Submit</string>
+</resources>
