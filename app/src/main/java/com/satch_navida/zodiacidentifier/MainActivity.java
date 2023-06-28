@@ -3,24 +3,39 @@ package com.satch_navida.zodiacidentifier;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.ActionMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.satch_navida.zodiacidentifier.validation.Validator;
+import com.satch_navida.zodiacidentifier.validation.rules.Date;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-	//PUBLIC OBJECTS
+	// PUBLIC OBJECTS
 	public DatePicker birthDateInput;
 	public Button selectDateBtn, submitBtn;
 	public Map<String, TextView> validationErrMsg;
+	public TextView zodiacSign, zodiacTraits;
+
+	/**
+	 * The accepted date format for the Date validation. This is used to set a constant and reusable
+	 * format for the entire application.
+	 */
+	static final public String DATE_FORMAT = Date.FORMATS[4];
+
+	// PROTECTED OBJECTS
+	protected DatePickerDialog datePickerDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
 	private void initializeObjects() {
 		this.selectDateBtn = findViewById(R.id.dateSelect);
 		this.submitBtn = findViewById(R.id.submit_btn);
+
+		this.zodiacSign = findViewById(R.id.zodiacSign);
+		this.zodiacTraits = findViewById(R.id.zodiacTraits);
 
 		validationErrMsg = new HashMap<String, TextView>() {
 			{
@@ -71,12 +89,56 @@ public class MainActivity extends AppCompatActivity {
 	 * Opens the date selection picker to allow users to select their birth dates.
 	 */
 	private void selectDate() {
-		DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this);
+		if (this.datePickerDialog == null) {
+			this.datePickerDialog = new DatePickerDialog(MainActivity.this);
 
-		this.birthDateInput = datePickerDialog.getDatePicker();
+			this.birthDateInput = datePickerDialog.getDatePicker();
+			this.birthDateInput.setId(R.id.birth_date_value);
 
-		datePickerDialog.setTitle(R.string.date_label);
-		datePickerDialog.create();
+			this.datePickerDialog.setTitle(R.string.date_label);
+			this.datePickerDialog.create();
+		}
+		else if (this.birthDateInput == null) {
+			this.birthDateInput = datePickerDialog.getDatePicker();
+		}
+		else {
+			int day = this.birthDateInput.getDayOfMonth();
+			int month = this.birthDateInput.getMonth();
+			int year = this.birthDateInput.getYear();
+
+			this.datePickerDialog.onDateChanged(this.birthDateInput, year, month, day);
+		}
+
+		this.birthDateInput.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+			@Override
+			public void onDateChanged(DatePicker view, int year, int month, int day) {
+				String date = String.format("%02d", month + 1) + "/" + String.format("%02d", day) + "/" + year;
+
+				DateFormat df = new SimpleDateFormat("MMMM dd, yyyy");
+				java.util.Date d = null;
+				try {
+					d = new SimpleDateFormat("MM/dd/yyyy").parse(date);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+
+				if (d == null)
+					selectDateBtn.setText(date);
+				else
+					selectDateBtn.setText(df.format(d));
+			}
+		});
+
+		this.datePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (which == DialogInterface.BUTTON_NEGATIVE) {
+					birthDateInput = null;
+					selectDateBtn.setText(R.string.date_placeholder);
+				}
+			}
+		});
+
 		datePickerDialog.show();
 	}
 
@@ -84,21 +146,30 @@ public class MainActivity extends AppCompatActivity {
 	 * Actions to be done when the submit button is clicked.
 	 */
 	private void onSubmit() {
-		int day = birthDateInput.getDayOfMonth();
-		int month = birthDateInput.getMonth() + 1;
-		int year = birthDateInput.getYear();
-		String date = String.format("%02d", month) + "/" + String.format("%02d", day) + "/" + year;
+		String date = this.selectDateBtn.getText().toString();
+		String bdiID = getResources().getResourceEntryName(R.id.birth_date_value);
+
+		if (this.birthDateInput != null) {
+			int day = this.birthDateInput.getDayOfMonth();
+			int month = this.birthDateInput.getMonth() + 1;
+			int year = this.birthDateInput.getYear();
+
+			date = String.format(Locale.US, "%02d", month) + "/" + String.format(Locale.US, "%02d", day) + "/" + year;
+			bdiID = getElementId(birthDateInput);
+		}
 
 		String[] ids = new String[] {
-				getElementId(birthDateInput)
+				bdiID
 		};
 
+		// If the date is between 1950 to 2999, then use the current date value. Otherwise use the null to fail the "Required" rule.
+		final String fDate = date.matches("^([0-3]\\d)([-/])([0-3]\\d)([-/])(19\\d{2}|2\\d{3})$") ? date : "";
 		/**
 		 * The values from the form. They'll be identified using their respective IDs.
 		 */
 		Map<String, Object> values = new HashMap<String, Object>() {
 			{
-				this.put(ids[0], date);
+				this.put(ids[0], fDate);
 			}
 		};
 
@@ -107,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 		 */
 		Map<String, String[]> rules = new HashMap<String, String[]>() {
 			{
-				this.put(ids[0], new String[] {"Required", "Date:MM/dd/yyyy"});
+				this.put(ids[0], new String[] {"Required", "Date:" + MainActivity.DATE_FORMAT});
 			}
 		};
 
@@ -140,14 +211,19 @@ public class MainActivity extends AppCompatActivity {
 			return;
 		}
 		// Iterate through the valid fields and remove their error message
-		else {
-			for (String field : validator.validFields())
-				this.validationErrMsg.get(field + "_error_msg").setText("");
-		}
+		for (String field : validator.validFields())
+			this.validationErrMsg.get(field + "_error_msg").setText("");
 
 		// If the validation succeeded, proceed to fetch the zodiac sign and their qualities.
-		double weight = Double.parseDouble(validatedFields.get(ids[0]).toString()),
-				height = Double.parseDouble(validatedFields.get(ids[1]).toString());
+		Zodiac z = new Zodiac(this, date);
+		String traits = "";
+
+		// Displays them...
+		this.zodiacSign.setText(String.format("%1$s (%2$s)", z.getSign(), date));
+		for (String trait : z.getTraits())
+			traits += String.format("\n◉ %1$s", trait);
+		this.zodiacTraits.setText(traits.trim());
+		return;
 	}
 
 	/**

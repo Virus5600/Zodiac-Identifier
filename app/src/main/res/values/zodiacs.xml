@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- All sources is courtesy of https://www.costarastrology.com/zodiac-signs -->
+<resources>
+	<string-array name="Aries">
+		<item>No filter</item>
+		<item>Gets angry, then forgets why they were angry</item>
+		<item>Thinks everything is a game they can win</item>
+		<item>Will do anything on a dare</item>
+		<item>Easily bored</item>
+	</string-array>
+	
+	<string-array name="Taurus">
+		<item>Just wants to cuddle</item>
+		<item>Homebody</item>
+		<item>All or nothing, no in-between</item>
+		<item>Wears the same outfit everyday</item>
+		<item>Hates big changes</item>
+	</string-array>
+	
+	<string-array name="Gemini">
+		<item>Charismatic</item>
+		<item>Uses humor as a crutch</item>
+		<item>Could talk to a brick wall</item>
+		<item>Arguments as flirting</item>
+		<item>Knows a little about everything</item>
+	</string-array>
+	
+	<string-array name="Cancer">
+		<item>Sensitive</item>
+		<item>Seeks comfort</item>
+		<item>Forgives but never forgets</item>
+		<item>Only has one boundary, but it is very firm</item>
+		<item>Takes on other people\'s problems</item>
+	</string-array>
+	
+	<string-array name="Leo">
+		<item>Exudes warmth and creativity</item>
+		<item>A little bit vain</item>
+		<item>Really big personality</item>
+		<item>Wants to stand out</item>
+		<item>Interested in luxury</item>
+	</string-array>
+	
+	<string-array name="Virgo">
+		<item>Needs to feel useful</item>
+		<item>Has a quick fix for everything</item>
+		<item>Judgmental, but with good intentions</item>
+		<item>Exceptional spatial awareness</item>
+		<item>A million ideas per second</item>
+	</string-array>
+	
+	<string-array name="Libra">
+		<item>Hates being alone</item>
+		<item>Really good aesthetics</item>
+		<item>Conflict avoidant</item>
+		<item>Sees every side</item>
+		<item>Prone to fantasy</item>
+		<item>Can\'t make decisions</item>
+	</string-array>
+	
+	<string-array name="Scorpio">
+		<item>Primary emotion is betrayal</item>
+		<item>Looks cool in a leather jacket</item>
+		<item>OK with uncomfortable silence</item>
+		<item>Can\'t be sure if they\'re serious or joking</item>
+		<item>Eyes that look into your soul</item>
+	</string-array>
+
+	<string-array name="Sagittarius">
+		<item>No indoor voice</item>
+		<item>Forms opinions off of pure emotion</item>
+		<item>Obsessed with self-improvement</item>
+		<item>Wields their truth like a blunt weapon</item>
+		<item>Friendliest person at the party</item>
+	</string-array>
+
+	<string-array name="Capricorn">
+		<item>Full grown adult since age six</item>
+		<item>The responsible friend</item>
+		<item>Motivated by duty</item>
+		<item>Takes a while to warm up to people</item>
+		<item>Represses any emotion that gets in the way of success</item>
+	</string-array>
+	
+	<string-array name="Aquarius">
+		<item>Purposefully esoteric</item>
+		<item>No feelings, just concepts</item>
+		<item>Actually believes in conspiracy theories</item>
+		<item>More in love with humanity as a whole than individuals</item>
+		<item>Always feels like an outcast</item>
+		<item>Fetishizes personal freedom</item>
+	</string-array>
+
+	<string-array name="Pisces">
+		<item>Somehow both 5 and 50 years old at once</item>
+		<item>Thinks everything is a sign</item>
+		<item>Can\'t remember if they dreamt it or it actually happened</item>
+		<item>Excessively romantic</item>
+		<item>Prone to fantasy</item>
+		<item>No boundaries</item>
+	</string-array>
+</resources>

@@ -13,5 +13,5 @@ public interface RuleInterface {
 	 *     <li><b>{@code runOtherValidation}</b> - Identifies whether to continue running other validations or stop at that last rule.</li>
 	 * </ul>
 	 */
-	public HashMap<String, Object> validate() throws Exception;
+	HashMap<String, Object> validate() throws Exception;
 }

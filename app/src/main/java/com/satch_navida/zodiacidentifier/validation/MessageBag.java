@@ -203,10 +203,14 @@ public class MessageBag {
 		for (String key : this.messages.keySet())
 			toRet += String.format("%1$s: \"%2$s\", ", key, this.messages.get(key));
 
-		toRet = toRet.substring(0, toRet.length() - 2) + "}";
+		if (toRet.length() > 3)
+			toRet = toRet.substring(0, toRet.length() - 2);
+
+		toRet += "}";
 
 		return toRet;
 	}
+
 	// PROTECTED METHODS
 
 	/**

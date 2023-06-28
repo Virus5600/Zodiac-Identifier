@@ -16,23 +16,23 @@ public class Validator {
 	/**
 	 * A private global variable container for all the values passed to this.
 	 */
-	private Map<String, Object> valueList;
+	private final Map<String, Object> valueList;
 	/**
 	 * A private global variable container for all the rules passed to this.
 	 */
-	private Map<String, String[]> ruleList;
+	private final Map<String, String[]> ruleList;
 	/**
 	 * A private global variable container for all the messages passed to this.
 	 */
-	private Map<String, String> msgList;
+	private final Map<String, String> msgList;
 	/**
 	 * A private global variable container for the {@link MessageBag} instance.
 	 */
-	private MessageBag errorList = new MessageBag();
+	private final MessageBag errorList = new MessageBag();
 	/**
 	 * A private global variable container for all the valid key-value pairs.
 	 */
-	private Map<String, Object> validSets = new HashMap<String, Object>();
+	private final Map<String, Object> validSets = new HashMap<String, Object>();
 	/**
 	 * A private global variable container that determines if the validation has been run already.
 	 */
@@ -44,7 +44,7 @@ public class Validator {
 	/**
 	 * A private global variable container, which will be used as a container for all the already validated keys.
 	 */
-	private ArrayList<String> validated = new ArrayList<String>();
+	private final ArrayList<String> validated = new ArrayList<String>();
 
 	// CONSTRUCTORS
 
@@ -207,15 +207,11 @@ public class Validator {
 					// Fetches the class dynamically using the rule name.
 					Class clazz = Class.forName(this.getClass().getPackageName() + ".rules." + rule);
 					// Then build the key for fetching the validation message for the current rule.
-					String msgKey = String.format(
-							"%1$s.%2$s",
-							field,
-							rule
-					);
+					String msgKey = String.format("%1$s.%2$s", field, rule);
 
-					/*
-					Fetch the constructor first using the dynamically acquired class, then proceed
-					to create a new instance under it super class "Rule".
+					/**
+					 * Fetch the constructor first using the dynamically acquired class, then proceed
+					 * to create a new instance under it super class "Rule".
 					 */
 					Rule r = (Rule) clazz.getDeclaredConstructor(
 							String.class,
@@ -233,7 +229,8 @@ public class Validator {
 					Call the .validate() method for the subclass of Rule using the dynamically acquired
 					class from earlier. This will allow us to validate the values respectively.
 					 */
-					HashMap<String, Object> response = (HashMap<String, Object>) r.getClass().asSubclass(clazz)
+					HashMap<String, Object> response = (HashMap<String, Object>) r.getClass()
+							.asSubclass(clazz)
 							.getMethod("validate")
 							.invoke(r);
 

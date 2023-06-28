@@ -38,10 +38,7 @@ public class Required extends Rule implements RuleInterface {
 	 * {@inheritDoc}
 	 */
 	public HashMap<String, Object> validate() {
-		if (this.value == null || this.value.toString().isEmpty())
-			this.setValid(false);
-		else
-			this.setValid(true);
+		this.setValid(this.value != null && !this.value.toString().isEmpty());
 
 		return new HashMap<String, Object>() {
 			{
