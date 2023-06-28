@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></p>
+<p align="center"><img src="https://github.com/Virus5600/Zodiac-Identifier/blob/da15c564dc750a3c6e7f0a847cca8fbf583856eb/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" width="400" alt="Zodiac Identifier Logo"></p>
 
 ## About Zodiac Identifier
 
