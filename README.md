@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/Virus5600/Zodiac-Identifier/blob/eb0b0ccaf4f870821e87eae6c82508652c740bb8/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="400" alt="Zodiac Identifier Logo"></p>
+<p align="center"><img src="https://github.com/Virus5600/Zodiac-Identifier/blob/eb0b0ccaf4f870821e87eae6c82508652c740bb8/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" height="250" alt="Zodiac Identifier Logo" title="Zodiac Identifier Logo"></p>
 
 ## About Zodiac Identifier
 
