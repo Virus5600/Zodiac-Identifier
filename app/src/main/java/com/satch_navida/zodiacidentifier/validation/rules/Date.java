@@ -7,7 +7,17 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 
 /**
- * Tests whether the {@code value} provided is a valid date.
+ * Tests whether the {@code value} provided is a valid date using one of the format provided below:<br>
+ * <ul>
+ *     <li>MM-dd-yyyy</li>
+ *     <li>MM-dd-yy</li>
+ *     <li>dd-MM-yyyy</li>
+ *     <li>dd-MM-yy</li>
+ *     <li>MM/dd/yyyy</li>
+ *     <li>MM/dd/yy</li>
+ *     <li>dd/MM/yyyy</li>
+ *     <li>dd/MM/yy</li>
+ * </ul>
  *
  * @author Virus5600
  * @version 1.0.0
@@ -16,6 +26,23 @@ public class Date extends Rule implements RuleInterface {
 
 	// OVERRIDE VARIABLES
 	protected String message = "The :key must be between a valid date";
+
+	// PUBLIC VARIABLES
+	/**
+	 * Contains all the formats currently supported by the {@link Date} rule.
+	 */
+	public static final HashMap<String, Character> FORMATS = new HashMap<String, Character>() {
+		{
+			this.put("MM-dd-yyyy", '-');
+			this.put("MM-dd-yy", '-');
+			this.put("dd-MM-yyyy", '-');
+			this.put("dd-MM-yy", '-');
+			this.put("MM/dd/yyyy", '/');
+			this.put("MM/dd/yy", '/');
+			this.put("dd/MM/yyyy", '/');
+			this.put("dd/MM/yy", '/');
+		}
+	};
 
 	/**
 	 * Creates an instance of {@link Rule}, containing all the necessary parameters: the
@@ -47,6 +74,9 @@ public class Date extends Rule implements RuleInterface {
 					this.validatorValues.length
 			));
 
+		// Split the date into their respective slices
+		String[] date = ((String) this.value).split(Date.FORMATS.get((String) validatorValues[0]).toString());
+
 		return new HashMap<String, Object>() {
 			{
 				this.put(Rule.VALIDATED_KEYS[0], isValid());
@@ -54,5 +84,18 @@ public class Date extends Rule implements RuleInterface {
 				this.put(Rule.VALIDATED_KEYS[2], getRunOtherValidations());
 			}
 		};
+	}
+
+	// PROTECTED
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected String getFinalMessage() {
+		String finalMsg = super.getFinalMessage()
+				.replaceAll("(:format)", this.validatorValues[0].toString());
+
+		return finalMsg;
 	}
 }
